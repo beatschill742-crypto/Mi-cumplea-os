@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roberto Sánchez - 62 Años</title>
+    
+    <!-- Etiquetas para compartir -->
+    <meta property="og:title" content="Roberto Sánchez - 62 Años">
+    <meta property="og:description" content="Estás invitado a una velada excepcional.">
+    <meta property="og:image" content="https://placehold.co/1200x630/111111/d97736.png?text=Edición+62+Años">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fuentes: Prata (Elegancia clásica) y Lato (Lectura moderna) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Prata&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Paleta Whiskey Lounge / Reserva Especial */
+            --bg-black: #080808;
+            --bg-charcoal: #141414;
+            --bg-brown: #241913;
+            --amber-glow: #d97736;
+            --copper-dark: #8c4217;
+            --bronze-light: #e8a97b;
+            --text-light: #f0f0f0;
+            --text-muted: #888888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body, html {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- FONDOS Y EFECTOS VFX (BRASAS Y HUMO) --- */
+        #embers-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+        }
+
+        .vintage-overlay {
+            position: fixed;
+            inset: 0;
+            /* Efecto viñeta y textura oscura */
+            background: radial-gradient(circle at center, transparent 20%, rgba(8, 8, 8, 0.95) 90%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* --- PANTALLA DE INICIO (LA CARTA) --- */
+        #intro-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-black);
+            background-image: radial-gradient(circle at top right, var(--bg-brown), var(--bg-black) 70%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.5s ease, visibility 1.5s;
+        }
+
+        #intro-screen.open {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .invitation-plate {
+            background: var(--bg-charcoal);
+            border: 1px solid var(--copper-dark);
+            padding: 50px 40px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(217, 119, 54, 0.05);
+            max-width: 90%;
+            width: 420px;
+            position: relative;
+        }
+
+        /* Adornos esquineros del plato */
+        .invitation-plate::before, .invitation-plate::after {
+            content: ''; position: absolute; width: 20px; height: 20px; border: 1px solid var(--amber-glow);
+        }
+        .invitation-plate::before { top: 15px; left: 15px; border-right: none; border-bottom: none; }
+        .invitation-plate::after { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+
+        .leather-stamp {
+            width: 80px;
+            height: 80px;
+            margin: -90px auto 35px;
+            background: linear-gradient(135deg, var(--bg-black), var(--bg-brown));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.8);
+            border: 2px solid var(--copper-dark);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            transform: rotate(45deg);
+        }
+
+        .leather-stamp:hover {
+            border-color: var(--amber-glow);
+            box-shadow: 0 0 30px rgba(217, 119, 54, 0.4);
+        }
+
+        .leather-stamp span {
+            font-family: 'Prata', serif;
+            font-size: 2.2rem;
+            color: var(--amber-glow);
+            transform: rotate(-45deg); /* Contrarrestar la rotación del contenedor */
+        }
+
+        /* --- CONTROL DE MÚSICA --- */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--copper-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover, .music-btn.playing { 
+            border-color: var(--amber-glow); 
+            box-shadow: 0 0 20px rgba(217, 119, 54, 0.3); 
+        }
+        .music-btn svg { width: 20px; height: 20px; fill: var(--bronze-light); transition: fill 0.3s; }
+        .music-btn.playing svg { fill: var(--amber-glow); }
+
+        /* --- ESTRUCTURA PRINCIPAL --- */
+        .wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 10px 40px;
+            text-align: center;
+        }
+
+        .badge-edition {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--bronze-light);
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--copper-dark);
+            padding-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Prata', serif;
+            font-size: clamp(3.5rem, 10vw, 5.5rem);
+            color: var(--text-light);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--amber-glow);
+            display: block;
+            font-size: clamp(5rem, 15vw, 8rem);
+            margin-top: -10px;
+            text-shadow: 0 0 40px rgba(217, 119, 54, 0.4);
+        }
+
+        .separator-svg {
+            width: 200px;
+            height: 30px;
+            margin: 20px auto;
+            fill: var(--copper-dark);
+        }
+
+        .section-block {
+            padding: 70px 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Prata', serif;
+            font-size: clamp(2.2rem, 7vw, 3rem);
+            color: var(--bronze-light);
+            margin-bottom: 5px;
+        }
+
+        .section-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--copper-dark);
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        /* --- TARJETAS ESTILO CAVA / LOUNGE --- */
+        .lounge-card {
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(140, 66, 23, 0.3);
+            padding: 45px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            margin: 0 auto 35px;
+            position: relative;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Adornos de línea en la tarjeta */
+        .lounge-card::before {
+            content: ''; position: absolute; inset: 6px; 
+            border: 1px dashed rgba(217, 119, 54, 0.15); pointer-events: none;
+        }
+
+        .icon-svg {
+            width: 45px;
+            height: 45px;
+            fill: var(--amber-glow);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(217, 119, 54, 0.4));
+        }
+
+        /* --- BOTONES --- */
+        .btn-amber {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--amber-glow);
+            padding: 16px 32px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--amber-glow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-amber::before {
+            content: ''; position: absolute; inset: 0; background: var(--amber-glow);
+            transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease; z-index: -1;
+        }
+
+        .btn-amber:hover { color: var(--bg-black); box-shadow: 0 0 25px rgba(217, 119, 54, 0.5); border-color: transparent;}
+        .btn-amber:hover::before { transform: scaleX(1); transform-origin: left; }
+
+        /* --- FORMULARIOS Y CAJAS DE TEXTO --- */
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-label {
+            display: block; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--bronze-light); margin-bottom: 10px; font-weight: 700;
+        }
+        .form-input {
+            width: 100%; padding: 16px; 
+            border: none; border-bottom: 1px solid var(--copper-dark);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-light); font-family: 'Lato', sans-serif; font-size: 1rem;
+            outline: none; transition: all 0.3s ease;
+        }
+        .form-input:focus { border-bottom-color: var(--amber-glow); background: rgba(217, 119, 54, 0.05); }
+        .form-input::placeholder { color: rgba(136, 136, 136, 0.4); }
+        .form-input option { background-color: var(--bg-black); color: var(--text-light); }
+
+        /* --- LISTAS DINÁMICAS --- */
+        .dynamic-list {
+            display: grid; gap: 15px; margin-top: 30px; max-height: 400px; overflow-y: auto; padding-right: 5px;
+        }
+        .dynamic-list::-webkit-scrollbar { width: 3px; }
+        .dynamic-list::-webkit-scrollbar-thumb { background: var(--copper-dark); }
+
+        .list-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 2px solid var(--amber-glow);
+            padding: 20px;
+            text-align: left;
+            animation: fadeInItem 0.5s ease;
+        }
+
+        @keyframes fadeInItem { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- GALERÍA EN TONOS CÁLIDOS --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            padding: 8px;
+            background: var(--bg-charcoal);
+            border: 1px solid rgba(140, 66, 23, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.9);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--amber-glow);
+            z-index: 5;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Filtro cálido para dar sensación vintage/whiskey */
+            filter: sepia(0.4) contrast(1.2) brightness(0.85);
+            transition: filter 0.4s ease;
+        }
+
+        .gallery-item:hover img { filter: sepia(0) contrast(1.1) brightness(1); }
+
+        .collapse-container { display: none; margin-top: 35px; animation: fadeInItem 0.6s ease; }
+
+        /* Scroll Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 600px) {
+            .invitation-plate { padding: 40px 20px; }
+            .hero-title { font-size: 3rem; }
+            .hero-title span { font-size: 5rem; }
+            .lounge-card { padding: 35px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo Animado: Brasas y Humo -->
+    <div class="vintage-overlay"></div>
+    <canvas id="embers-canvas"></canvas>
+
+    <!-- Reproductor de Audio (Oculto) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="cancion62.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-btn" id="music-btn" onclick="toggleMusic()">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </div>
+
+    <!-- PANTALLA DE INICIO (LA CARTA) -->
+    <div id="intro-screen">
+        <div class="invitation-plate">
+            <div class="leather-stamp" onclick="openInvitation()">
+                <span>R</span>
+            </div>
+            <p style="font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 20px;">Reserva Especial</p>
+            <h2 style="font-family: 'Prata', serif; font-size: 2rem; color: #fff; font-weight: 400; line-height: 1.3;" id="guest-name-display">
+                Estimado Invitado
+            </h2>
+            <p style="font-size: 0.65rem; color: var(--copper-dark); margin-top: 35px; letter-spacing: 3px;">TOCA EL SELLO PARA DESCUBRIR</p>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <!-- SECCIÓN PRINCIPAL -->
+        <section class="hero-section">
+            <p class="badge-edition">Edición Limitada • 1964</p>
+            <h1 class="hero-title">Roberto Sánchez<br><span>62</span></h1>
+            
+            <svg class="separator-svg" viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,15 L90,15 M110,15 L190,15" stroke="currentColor" stroke-width="1"/>
+                <polygon points="100,8 105,15 100,22 95,15" fill="currentColor"/>
+            </svg>
+
+            <p style="font-family: 'Prata', serif; font-size: 1.4rem; color: var(--text-light); margin-top: 10px;">
+                Un brindis por la vida y los buenos momentos.
+            </p>
+            
+            <p style="font-size: 0.9rem; letter-spacing: 3px; color: var(--amber-glow); text-transform: uppercase; margin-top: 40px;">
+                Sábado 15 de Noviembre • 2026
+            </p>
+        </section>
+
+        <!-- SECCIÓN: ITINERARIO -->
+        <section class="section-block reveal">
+            <h2 class="section-title">El Itinerario</h2>
+            <p class="section-subtitle">Programa de la Velada</p>
+            
+            <div class="lounge-card">
+                <div style="text-align: left; margin-bottom: 30px; position: relative; padding-left: 25px;">
+                    <div style="position: absolute; left: 0; top: 5px; bottom: -30px; width: 1px; background: var(--copper-dark);"></div>
+                    <div style="position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; background: var(--amber-glow); transform: rotate(45deg);"></div>
+                    
+                    <h4 style="font-family: 'Prata', serif; font-size: 1.5rem; color: var(--amber-glow);">19:00 HRS</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 8px;">Recepción y Bienvenida. Disfruta de un trago en la barra.</p>
+                </div>
+
+                <div style="text-align: left; margin-bottom: 30px; position: relative; padding-left: 25px;">
+                    <div style="position: absolute; left: 0; top: 5px; bottom: -30px; width: 1px; background: var(--copper-dark);"></div>
+                    <div style="position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; background: var(--amber-glow); transform: rotate(45deg);"></div>
+                    
+                    <h4 style="font-family: 'Prata', serif; font-size: 1.5rem; color: var(--amber-glow);">20:30 HRS</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 8px;">Banquete, corte de carne y el gran brindis.</p>
+                </div>
+
+                <div style="text-align: left; position: relative; padding-left: 25px;">
+                    <div style="position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; background: var(--amber-glow); transform: rotate(45deg);"></div>
+                    
+                    <h4 style="font-family: 'Prata', serif; font-size: 1.5rem; color: var(--amber-glow);">22:00 HRS</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 8px;">Música en vivo, puros y celebración continua.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: UBICACIÓN Y DRESS CODE -->
+        <section class="section-block reveal">
+            <h2 class="section-title">El Lugar</h2>
+            <p class="section-subtitle">Punto de encuentro</p>
+            
+            <div class="lounge-card">
+                <!-- Icono Copa de Coñac/Whiskey en SVG puro -->
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M12 21C8.13 21 5 17.87 5 14c0-3.33 2.1-6.19 5.09-7.44L12 2l1.91 4.56C16.9 7.81 19 10.67 19 14c0 3.87-3.13 7-7 7z M12 4.4L10.8 7.23C8.63 8.16 7 10.88 7 14c0 2.76 2.24 5 5 5s5-2.24 5-5c0-3.12-1.63-5.84-3.8-6.77L12 4.4z"/>
+                    <path d="M7.5 14c0 2.48 2.02 4.5 4.5 4.5S16.5 16.48 16.5 14" opacity="0.3"/>
+                </svg>
+                
+                <h3 style="font-family: 'Prata', serif; font-size: 1.7rem; margin-bottom: 12px; color: var(--text-light);">Salón Diamante Real</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px;">
+                    Av. de los Insurgentes Sur 1234<br>
+                    Col. Del Valle, Ciudad de México.
+                </p>
+                
+                <a href="#" target="_blank" class="btn-amber" style="width: 100%;">
+                    Abrir Mapa
+                </a>
+            </div>
+
+            <div class="lounge-card" style="padding: 30px;">
+                <h3 style="font-family: 'Prata', serif; font-size: 1.3rem; color: var(--bronze-light); margin-bottom: 8px;">Dress Code</h3>
+                <p style="font-size: 1rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">Formal / Elegante</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: GALERÍA DE FOTOS -->
+        <section class="section-block reveal">
+            <h2 class="section-title">Memorias</h2>
+            <p class="section-subtitle">Añejando buenos momentos</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="foto1.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+1'" alt="Foto 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="foto2.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+2'" alt="Foto 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="foto3.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+3'" alt="Foto 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="foto4.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+4'" alt="Foto 4">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LA ROCKOLA -->
+        <section class="section-block reveal">
+            <h2 class="section-title">The Playlist</h2>
+            <p class="section-subtitle">¿Qué canción suena hoy?</p>
+
+            <div class="lounge-card">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 30px;">Comparte esa canción que no puede faltar en la lista de reproducción de la noche.</p>
+                
+                <button type="button" class="btn-amber" style="width: 100%;" onclick="document.getElementById('rockola-container').style.display='block'; this.style.display='none';">
+                    Sugerir Melodía
+                </button>
+
+                <div id="rockola-container" class="collapse-container">
+                    <form id="song-form">
+                        <div class="form-group">
+                            <label class="form-label">Título de la Canción</label>
+                            <input type="text" id="song-name" class="form-input" placeholder="Ej. Fly Me to the Moon" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Artista</label>
+                            <input type="text" id="song-artist" class="form-input" placeholder="Ej. Frank Sinatra" required>
+                        </div>
+                        <button type="submit" class="btn-amber" style="width: 100%; padding: 12px;">Añadir</button>
+                    </form>
+
+                    <div class="dynamic-list" id="song-list">
+                        <!-- Lista de canciones local -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: MURO DE LOS DESEOS -->
+        <section class="section-block reveal">
+            <h2 class="section-title">Un Brindis</h2>
+            <p class="section-subtitle">El libro de firmas</p>
+
+            <div class="lounge-card">
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 30px;">Será un honor leer tus palabras. Déjame un mensaje para recordar este cumpleaños.</p>
+                
+                <button type="button" class="btn-amber" style="width: 100%;" onclick="document.getElementById('wishes-container').style.display='block'; this.style.display='none';">
+                    Escribir un Toast
+                </button>
+
+                <div id="wishes-container" class="collapse-container">
+                    <form id="wish-form">
+                        <div class="form-group">
+                            <label class="form-label">Firmado por</label>
+                            <input type="text" id="w-name" class="form-input" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mensaje</label>
+                            <textarea id="w-msg" class="form-input" rows="3" placeholder="Redacta tus buenos deseos..." required style="resize: none;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-amber" style="width: 100%; padding: 12px;">Publicar</button>
+                    </form>
+
+                    <div class="dynamic-list" id="wishes-list" style="margin-top: 35px;">
+                        <!-- Mensajes locales -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CONFIRMACIÓN DE ASISTENCIA -->
+        <section class="section-block reveal" style="padding-bottom: 100px;">
+            <h2 class="section-title">RSVP</h2>
+            <p class="section-subtitle">Confirmación de Asistencia</p>
+
+            <div class="lounge-card">
+                <button type="button" class="btn-amber" id="btn-reveal-rsvp" style="width: 100%;" onclick="document.getElementById('rsvp-container').style.display='block'; this.style.display='none';">
+                    Confirmar Presencia
+                </button>
+
+                <div id="rsvp-container" class="collapse-container" style="margin-top: 0;">
+                    <form id="rsvp-form">
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Invitado</label>
+                            <input type="text" name="Nombre" id="rsvp-name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirmación</label>
+                            <select name="Asistencia" class="form-input" required>
+                                <option value="" disabled selected>Elige una opción</option>
+                                <option value="Sí asisto">Asistiré con gusto</option>
+                                <option value="No asisto">Me es imposible asistir</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-amber" style="width: 100%;">Enviar Respuesta</button>
+                    </form>
+                </div>
+                
+                <div id="rsvp-success" style="display: none; margin-top: 20px; text-align: center;">
+                    <h3 style="font-family: 'Prata', serif; font-size: 2.2rem; color: var(--bronze-light);">Recibido</h3>
+                    <p style="font-size: 0.95rem; margin-top: 10px; color: var(--text-muted);">Tu respuesta ha sido registrada exitosamente.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- APERTURA Y MÚSICA ---
+        const audio = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let audioInit = false;
+
+        function openInvitation() {
+            const intro = document.getElementById('intro-screen');
+            intro.style.opacity = '0';
+            setTimeout(() => { intro.style.visibility = 'hidden'; }, 1500);
+            startAudio();
+        }
+
+        function startAudio() {
+            if (audioInit || !audio) return;
+            // Configuramos inicio en seg 0 o el deseado
+            audio.play().then(() => {
+                audioInit = true;
+                musicBtn.classList.add('playing');
+            }).catch(() => { console.log('Interacción requerida para audio'); });
+        }
+
+        function toggleMusic() {
+            if (!audioInit) { audioInit = true; }
+            if (audio.paused) {
+                audio.play();
+                musicBtn.classList.add('playing');
+            } else {
+                audio.pause();
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        // --- SISTEMA DE PARTÍCULAS (BRASAS CÁLIDAS / HUMO) ---
+        const canvas = document.getElementById('embers-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<80; i++) {
+                particles.push(createEmber());
+            }
+        }
+
+        function createEmber() {
+            // Tonos cálidos de fuego y ámbar
+            const colors = ['#d97736', '#8c4217', '#e8a97b', '#4a1e06'];
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height + canvas.height, // Comienzan abajo
+                size: Math.random() * 2.5 + 0.5,
+                vx: (Math.random() - 0.5) * 1,
+                vy: -(Math.random() * 1.5 + 0.5), // Suben
+                alpha: Math.random(),
+                fadeRate: (Math.random() * 0.02 + 0.005),
+                color: colors[Math.floor(Math.random() * colors.length)]
+            };
+        }
+
+        initCanvas();
+        window.addEventListener('resize', initCanvas);
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += Math.sin(p.y * 0.02) * 0.5 + p.vx; // Movimiento oscilante como humo
+                p.y += p.vy;
+                p.alpha -= p.fadeRate * 0.2; // Se desvanecen lentamente
+                
+                if(p.alpha <= 0 || p.y < -10) {
+                    particles[i] = createEmber();
+                    particles[i].y = canvas.height + 10;
+                    particles[i].x = Math.random() * canvas.width;
+                }
+
+                ctx.globalAlpha = Math.max(0, p.alpha);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- SCROLL REVEAL ---
+        function revealElements() {
+            let reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) { reveals[i].classList.add('active'); }
+            }
+        }
+        window.addEventListener('scroll', revealElements);
+        setTimeout(revealElements, 1000); // Trigger initial checks
+
+        // --- ENLACES PERSONALIZADOS ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const invitado = urlParams.get('invitado');
+            
+            if (invitado) {
+                const guestDisplay = document.getElementById('guest-name-display');
+                if(guestDisplay) { guestDisplay.innerHTML = invitado; }
+                
+                const rsvpName = document.getElementById('rsvp-name');
+                if(rsvpName) { rsvpName.value = invitado; }
+            }
+        });
+
+        // --- LOGICA ROCKOLA (LocalStorage) ---
+        const songForm = document.getElementById('song-form');
+        const songList = document.getElementById('song-list');
+
+        function loadSongs() {
+            const songs = JSON.parse(localStorage.getItem('62_whiskey_songs')) || [];
+            songList.innerHTML = songs.map(s => `
+                <div class="list-item">
+                    <span style="display:block; color:var(--amber-glow); font-family:'Prata',serif; font-size:1.1rem; margin-bottom:5px;">${s.title}</span>
+                    <span style="font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">${s.artist}</span>
+                </div>
+            `).join('');
+        }
+        loadSongs();
+
+        songForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('song-name').value;
+            const artist = document.getElementById('song-artist').value;
+            const songs = JSON.parse(localStorage.getItem('62_whiskey_songs')) || [];
+            songs.unshift({ title, artist });
+            localStorage.setItem('62_whiskey_songs', JSON.stringify(songs));
+            loadSongs();
+            songForm.reset();
+        });
+
+        // --- LOGICA LIBRO DE FIRMAS (LocalStorage) ---
+        const wishForm = document.getElementById('wish-form');
+        const wishesList = document.getElementById('wishes-list');
+
+        function loadWishes() {
+            const wishes = JSON.parse(localStorage.getItem('62_whiskey_wishes')) || [];
+            wishesList.innerHTML = wishes.map(w => `
+                <div class="list-item">
+                    <span style="display:block; font-family:'Prata', serif; font-size:1.3rem; color:var(--bronze-light); margin-bottom:8px;">${w.name}</span>
+                    <span style="display:block; font-size:0.95rem; color:var(--text-light); line-height:1.5;">"${w.msg}"</span>
+                </div>
+            `).join('');
+        }
+        loadWishes();
+
+        wishForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('w-name').value;
+            const msg = document.getElementById('w-msg').value;
+            const wishes = JSON.parse(localStorage.getItem('62_whiskey_wishes')) || [];
+            wishes.unshift({ name, msg });
+            localStorage.setItem('62_whiskey_wishes', JSON.stringify(wishes));
+            loadWishes();
+            wishForm.reset();
+        });
+
+        // --- FORMULARIO RSVP (Simulado) ---
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.innerText = "ENVIANDO...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('rsvp-container').style.display = 'none';
+                document.getElementById('rsvp-success').style.display = 'block';
+            }, 1000);
+        });
+
+    </script>
+</body>
+</html>
