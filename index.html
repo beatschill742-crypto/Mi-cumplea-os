@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel González - Gran Celebración</title>
+    <title>Roberto Sánchez - 62 Años</title>
     
     <!-- Etiquetas para compartir -->
-    <meta property="og:title" content="Miguel González - Gran Celebración">
+    <meta property="og:title" content="Roberto Sánchez - 62 Años">
     <meta property="og:description" content="Estás invitado a una velada excepcional.">
-    <meta property="og:image" content="https://placehold.co/1200x630/111111/d97736.png?text=Gran+Celebración">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image" content="https://placehold.co/1200x630/111111/d97736.png?text=Edición+62+Años">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -193,8 +190,8 @@
         .hero-title span {
             color: var(--amber-glow);
             display: block;
-            font-size: clamp(3rem, 10vw, 4.5rem);
-            margin-top: 5px;
+            font-size: clamp(5rem, 15vw, 8rem);
+            margin-top: -10px;
             text-shadow: 0 0 40px rgba(217, 119, 54, 0.4);
         }
 
@@ -357,8 +354,8 @@
 
         @media (max-width: 600px) {
             .invitation-plate { padding: 40px 20px; }
-            .hero-title { font-size: 3.5rem; }
-            .hero-title span { font-size: 4rem; }
+            .hero-title { font-size: 3rem; }
+            .hero-title span { font-size: 5rem; }
             .lounge-card { padding: 35px 20px; }
         }
     </style>
@@ -371,7 +368,7 @@
 
     <!-- Reproductor de Audio (Oculto) -->
     <audio id="bg-music" loop preload="auto">
-        <source src="pelotero.mp3" type="audio/mpeg">
+        <source src="cancion62.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-btn" id="music-btn" onclick="toggleMusic()">
@@ -382,7 +379,7 @@
     <div id="intro-screen">
         <div class="invitation-plate">
             <div class="leather-stamp" onclick="openInvitation()">
-                <span>M</span>
+                <span>R</span>
             </div>
             <p style="font-family: 'Lato', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 20px;">Reserva Especial</p>
             <h2 style="font-family: 'Prata', serif; font-size: 2rem; color: #fff; font-weight: 400; line-height: 1.3;" id="guest-name-display">
@@ -396,8 +393,8 @@
         
         <!-- SECCIÓN PRINCIPAL -->
         <section class="hero-section">
-            <p class="badge-edition">Edición Exclusiva • Gran Celebración</p>
-            <h1 class="hero-title">Miguel<br><span>González</span></h1>
+            <p class="badge-edition">Edición Limitada • 1964</p>
+            <h1 class="hero-title">Roberto Sánchez<br><span>62</span></h1>
             
             <svg class="separator-svg" viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10,15 L90,15 M110,15 L190,15" stroke="currentColor" stroke-width="1"/>
@@ -439,7 +436,7 @@
                     <div style="position: absolute; left: -4px; top: 8px; width: 9px; height: 9px; background: var(--amber-glow); transform: rotate(45deg);"></div>
                     
                     <h4 style="font-family: 'Prata', serif; font-size: 1.5rem; color: var(--amber-glow);">22:00 HRS</h4>
-                    <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 8px;">Música, celebración continua y pista de baile.</p>
+                    <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 8px;">Música en vivo, puros y celebración continua.</p>
                 </div>
             </div>
         </section>
@@ -456,13 +453,13 @@
                     <path d="M7.5 14c0 2.48 2.02 4.5 4.5 4.5S16.5 16.48 16.5 14" opacity="0.3"/>
                 </svg>
                 
-                <h3 style="font-family: 'Prata', serif; font-size: 1.7rem; margin-bottom: 12px; color: var(--text-light);">Salón Diamante Real</h3>
+                <h3 style="font-family: 'Prata', serif; font-size: 1.7rem; margin-bottom: 12px; color: var(--text-light);">Jardín Los Laureles</h3>
                 <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 30px;">
-                    Av. de los Insurgentes Sur 1234<br>
-                    Col. Del Valle, Ciudad de México.
+                    Naucalpan de Juárez,<br>
+                    Estado de México.
                 </p>
                 
-                <a href="#" target="_blank" class="btn-amber" style="width: 100%;">
+                <a href="https://www.google.com/maps/search/?api=1&query=Jard%C3%ADn+Los+Laureles%2C+Naucalpan+de+Ju%C3%A1rez" target="_blank" class="btn-amber" style="width: 100%;">
                     Abrir Mapa
                 </a>
             </div>
@@ -470,34 +467,6 @@
             <div class="lounge-card" style="padding: 30px;">
                 <h3 style="font-family: 'Prata', serif; font-size: 1.3rem; color: var(--bronze-light); margin-bottom: 8px;">Dress Code</h3>
                 <p style="font-size: 1rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">Formal / Elegante</p>
-            </div>
-        </section>
-
-        <!-- SECCIÓN: OBSEQUIOS (BANORTE) -->
-        <section class="section-block reveal">
-            <h2 class="section-title">Obsequios</h2>
-            <p class="section-subtitle">Un detalle especial</p>
-            
-            <div class="lounge-card">
-                <!-- Icono de Sobre/Regalo -->
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="var(--amber-glow)" stroke-width="1.5">
-                    <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
-                    <path d="M2 4l10 8 10-8"></path>
-                </svg>
-                
-                <p style="font-size: 1.05rem; color: var(--text-light); margin-bottom: 20px; line-height: 1.5;">
-                    El mejor regalo que puedo recibir es contar con tu presencia.
-                </p>
-                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
-                    En caso de desear tener un detalle adicional y no saber qué elegir, pongo a tu disposición mi número de cuenta bancaria:
-                </p>
-                
-                <div style="background: rgba(0, 0, 0, 0.5); padding: 25px; border-radius: 8px; border-left: 3px solid var(--amber-glow); display: inline-block; text-align: left; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
-                    <p style="color: var(--amber-glow); font-family: 'Prata', serif; font-size: 1.4rem; margin-bottom: 8px; letter-spacing: 1px;">Banorte</p>
-                    <p style="font-size: 1.2rem; font-weight: 700; letter-spacing: 3px; color: var(--text-light);">
-                        4189 1430 9469 7771
-                    </p>
-                </div>
             </div>
         </section>
 
@@ -513,11 +482,11 @@
                 <div class="gallery-item">
                     <img src="foto2.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+2'" alt="Foto 2">
                 </div>
-                <div class="gallery-item">
-                    <img src="foto3.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+3'" alt="Foto 3">
-                </div>
-                <div class="gallery-item">
-                    <img src="foto4.jpg" onerror="this.src='https://placehold.co/400x500/241913/d97736?text=Memoria+4'" alt="Foto 4">
+                <div style="background: rgba(0, 0, 0, 0.5); padding: 25px; border-radius: 8px; border-left: 3px solid var(--amber-glow); display: inline-block; text-align: left; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+                    <p style="color: var(--amber-glow); font-family: 'Prata', serif; font-size: 1.4rem; margin-bottom: 8px; letter-spacing: 1px;">Banorte</p>
+                    <p style="font-size: 1.2rem; font-weight: 700; letter-spacing: 3px; color: var(--text-light);">
+                        4189 1430 9469 7771
+                    </p>
                 </div>
             </div>
         </section>
@@ -561,7 +530,7 @@
             <p class="section-subtitle">El libro de firmas</p>
 
             <div class="lounge-card">
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 30px;">Será un honor leer tus palabras. Déjame un mensaje para recordar esta celebración.</p>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 30px;">Será un honor leer tus palabras. Déjame un mensaje para recordar este cumpleaños.</p>
                 
                 <button type="button" class="btn-amber" style="width: 100%;" onclick="document.getElementById('wishes-container').style.display='block'; this.style.display='none';">
                     Escribir un Toast
@@ -639,8 +608,7 @@
 
         function startAudio() {
             if (audioInit || !audio) return;
-            // Configuramos inicio en el segundo 13
-            audio.currentTime = 13;
+            // Configuramos inicio en seg 0 o el deseado
             audio.play().then(() => {
                 audioInit = true;
                 musicBtn.classList.add('playing');
@@ -648,10 +616,7 @@
         }
 
         function toggleMusic() {
-            if (!audioInit) { 
-                audio.currentTime = 13; 
-                audioInit = true; 
-            }
+            if (!audioInit) { audioInit = true; }
             if (audio.paused) {
                 audio.play();
                 musicBtn.classList.add('playing');
@@ -750,7 +715,7 @@
         const songList = document.getElementById('song-list');
 
         function loadSongs() {
-            const songs = JSON.parse(localStorage.getItem('miguel_songs')) || [];
+            const songs = JSON.parse(localStorage.getItem('62_whiskey_songs')) || [];
             songList.innerHTML = songs.map(s => `
                 <div class="list-item">
                     <span style="display:block; color:var(--amber-glow); font-family:'Prata',serif; font-size:1.1rem; margin-bottom:5px;">${s.title}</span>
@@ -764,9 +729,9 @@
             e.preventDefault();
             const title = document.getElementById('song-name').value;
             const artist = document.getElementById('song-artist').value;
-            const songs = JSON.parse(localStorage.getItem('miguel_songs')) || [];
+            const songs = JSON.parse(localStorage.getItem('62_whiskey_songs')) || [];
             songs.unshift({ title, artist });
-            localStorage.setItem('miguel_songs', JSON.stringify(songs));
+            localStorage.setItem('62_whiskey_songs', JSON.stringify(songs));
             loadSongs();
             songForm.reset();
         });
@@ -776,7 +741,7 @@
         const wishesList = document.getElementById('wishes-list');
 
         function loadWishes() {
-            const wishes = JSON.parse(localStorage.getItem('miguel_wishes')) || [];
+            const wishes = JSON.parse(localStorage.getItem('62_whiskey_wishes')) || [];
             wishesList.innerHTML = wishes.map(w => `
                 <div class="list-item">
                     <span style="display:block; font-family:'Prata', serif; font-size:1.3rem; color:var(--bronze-light); margin-bottom:8px;">${w.name}</span>
@@ -790,14 +755,14 @@
             e.preventDefault();
             const name = document.getElementById('w-name').value;
             const msg = document.getElementById('w-msg').value;
-            const wishes = JSON.parse(localStorage.getItem('miguel_wishes')) || [];
+            const wishes = JSON.parse(localStorage.getItem('62_whiskey_wishes')) || [];
             wishes.unshift({ name, msg });
-            localStorage.setItem('miguel_wishes', JSON.stringify(wishes));
+            localStorage.setItem('62_whiskey_wishes', JSON.stringify(wishes));
             loadWishes();
             wishForm.reset();
         });
 
-        // --- FORMULARIO RSVP (Simulado para catálogo) ---
+        // --- FORMULARIO RSVP (Simulado) ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
