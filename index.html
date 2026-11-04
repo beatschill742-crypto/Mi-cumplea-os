@@ -336,6 +336,67 @@
         .form-input::placeholder { color: rgba(148, 163, 184, 0.5); }
         .form-input option { background-color: var(--navy-darkest); color: var(--text-main); }
 
+        /* --- ACORDEÓN ITINERARIO --- */
+        .accordion-item {
+            border-left: 2px solid var(--gold-classic);
+            padding-left: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .accordion-time {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--gold-classic);
+        }
+
+        .accordion-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 5px;
+            color: var(--text-main);
+            transition: color 0.3s;
+        }
+
+        .accordion-icon {
+            color: var(--gold-classic);
+            transition: transform 0.4s ease;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            opacity: 0;
+        }
+
+        .accordion-item.open .accordion-content {
+            max-height: 150px;
+            padding-top: 12px;
+            opacity: 1;
+        }
+
+        .accordion-item.open .accordion-title {
+            color: var(--gold-light);
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(45deg);
+        }
+
         /* --- LISTAS DINÁMICAS (CANCIONES Y DESEOS) --- */
         .dynamic-list {
             display: grid;
@@ -463,28 +524,82 @@
             <h1 class="hero-title">Miguel<br><span>González</span></h1>
             
             <div class="date-badge">
-                Sábado • 15 de Noviembre • 2026
+                Sábado • 21 de Noviembre • 2026
             </div>
         </section>
 
         <!-- SECCIÓN: ITINERARIO -->
         <section class="section-block reveal">
             <h2 class="section-title">La Velada</h2>
-            <p class="section-subtitle">Programa de la Noche</p>
+            <p class="section-subtitle">Programa de la Noche (Toca para descubrir)</p>
             
             <div class="luxury-card">
-                <div style="border-left: 2px solid var(--gold-classic); padding-left: 20px; text-align: left; margin-bottom: 25px;">
-                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold-classic);">19:00 HRS</h4>
-                    <p style="font-size: 0.9rem; font-weight: 500; margin-top: 5px;">Recepción y Cóctel de Bienvenida</p>
+                
+                <div class="accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">
+                        <div>
+                            <h4 class="accordion-time">18:30 HRS</h4>
+                            <p class="accordion-title">Recepción</p>
+                        </div>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        La noche comienza. Encuentra tu lugar y prepárate para una velada inolvidable llena de estilo y buena compañía.
+                    </div>
                 </div>
-                <div style="border-left: 2px solid var(--gold-classic); padding-left: 20px; text-align: left; margin-bottom: 25px;">
-                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold-classic);">20:30 HRS</h4>
-                    <p style="font-size: 0.9rem; font-weight: 500; margin-top: 5px;">Cena y Brindis</p>
+
+                <div class="accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">
+                        <div>
+                            <h4 class="accordion-time">19:00 HRS</h4>
+                            <p class="accordion-title">Cóctel de Bienvenida</p>
+                        </div>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        Chocamos las copas por primera vez. Disfruta de un trago en la barra mientras la atmósfera se llena de magia.
+                    </div>
                 </div>
-                <div style="border-left: 2px solid var(--gold-classic); padding-left: 20px; text-align: left;">
-                    <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold-classic);">22:00 HRS</h4>
-                    <p style="font-size: 0.9rem; font-weight: 500; margin-top: 5px;">Música, Baile y Celebración</p>
+
+                <div class="accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">
+                        <div>
+                            <h4 class="accordion-time">19:30 HRS</h4>
+                            <p class="accordion-title">Cena de Gala</p>
+                        </div>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        Un festín cuidadosamente preparado para deleitar los sentidos en honor a esta ocasión tan especial.
+                    </div>
                 </div>
+
+                <div class="accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">
+                        <div>
+                            <h4 class="accordion-time">20:30 HRS</h4>
+                            <p class="accordion-title">Mariachi</p>
+                        </div>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        Las trompetas y guitarras resuenan para cantarle a la vida con el más auténtico sabor mexicano.
+                    </div>
+                </div>
+
+                <div class="accordion-item" onclick="toggleAccordion(this)" style="margin-bottom: 0;">
+                    <div class="accordion-header">
+                        <div>
+                            <h4 class="accordion-time">21:30 HRS</h4>
+                            <p class="accordion-title">Baile y Celebración</p>
+                        </div>
+                        <div class="accordion-icon">+</div>
+                    </div>
+                    <div class="accordion-content">
+                        Que el ritmo tome el control. La pista se abre para llenarnos de energía y seguir creando grandes recuerdos.
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -557,11 +672,11 @@
                     <form id="song-form">
                         <div class="form-group">
                             <label class="form-label">Nombre de la Canción</label>
-                            <input type="text" id="song-name" class="form-input" placeholder="Ej. El Triste" required>
+                            <input type="text" id="song-name" name="Cancion" class="form-input" placeholder="Ej. El Triste" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Artista / Grupo</label>
-                            <input type="text" id="song-artist" class="form-input" placeholder="Ej. José José" required>
+                            <input type="text" id="song-artist" name="Artista" class="form-input" placeholder="Ej. José José" required>
                         </div>
                         <button type="submit" class="btn-gold" style="width: 100%;">Añadir a la Playlist</button>
                     </form>
@@ -589,11 +704,11 @@
                     <form id="wish-form">
                         <div class="form-group">
                             <label class="form-label">Tu Nombre</label>
-                            <input type="text" id="w-name" class="form-input" placeholder="Familia Pérez" required>
+                            <input type="text" id="w-name" name="Invitado" class="form-input" placeholder="Familia Pérez" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Tu Mensaje</label>
-                            <textarea id="w-msg" class="form-input" rows="3" placeholder="Escribe tus buenos deseos..." required style="resize: none;"></textarea>
+                            <textarea id="w-msg" name="Mensaje" class="form-input" rows="3" placeholder="Escribe tus buenos deseos..." required style="resize: none;"></textarea>
                         </div>
                         <button type="submit" class="btn-gold" style="width: 100%;">Publicar Mensaje</button>
                     </form>
@@ -751,17 +866,30 @@
         }
         window.addEventListener('scroll', revealElements);
 
-        // --- ENLACES PERSONALIZADOS ---
+        // --- ENLACES PERSONALIZADOS (MODIFICADO PARA FLEXIBILIDAD) ---
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const invitado = urlParams.get('invitado');
+            const pases = urlParams.get('pases');
             
             if (invitado) {
                 const guestDisplay = document.getElementById('guest-name-display');
-                if(guestDisplay) { guestDisplay.innerHTML = invitado; }
+                if(guestDisplay) { 
+                    let texto = invitado;
+                    // Si deciden incluir el número de pases en la URL, se agregará elegantemente
+                    if(pases) {
+                        texto += `<br><span style="display:inline-block; margin-top:10px; font-size:0.75rem; letter-spacing:2px; font-family:'Montserrat',sans-serif; color:var(--gold-classic); text-transform:uppercase;">Pases asignados: ${pases}</span>`;
+                    }
+                    guestDisplay.innerHTML = texto; 
+                }
                 
+                // Pre-llenar formulario de Confirmación
                 const rsvpName = document.getElementById('rsvp-name');
                 if(rsvpName) { rsvpName.value = invitado; }
+
+                // Pre-llenar Libro de Firmas
+                const wishName = document.getElementById('w-name');
+                if(wishName) { wishName.value = invitado; }
             }
         });
 
@@ -831,18 +959,41 @@
         }
         loadSongs();
 
+        // ----------------------------------------------------
+        // --- INTEGRACIÓN GOOGLE SHEETS (LOS 3 FORMULARIOS) --
+        // ----------------------------------------------------
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjExoghjxCUGE8_62Etd9r1KgxOfba0gz7KcWEcJj3MDLCkxT0GHzkKtHbMFxClttuYQ/exec"; 
+
         songForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const btn = songForm.querySelector('button');
+            btn.innerText = "AÑADIENDO...";
+            btn.disabled = true;
+
             const title = document.getElementById('song-name').value;
             const artist = document.getElementById('song-artist').value;
+            
+            // Guardar localmente para mostrar inmediato
             const songs = JSON.parse(localStorage.getItem('miguel_navy_songs')) || [];
             songs.unshift({ title, artist });
             localStorage.setItem('miguel_navy_songs', JSON.stringify(songs));
             loadSongs();
-            songForm.reset();
+
+            // Enviar a la nube (Google Sheets)
+            const formData = new FormData(songForm);
+            formData.append("TipoFormulario", "Rockola");
+
+            fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
+                btn.innerText = "¡AÑADIDA CON ÉXITO!";
+                setTimeout(() => { btn.innerText = "Añadir a la Playlist"; btn.disabled = false; }, 2500);
+                songForm.reset();
+            }).catch(() => {
+                btn.innerText = "Añadir a la Playlist"; btn.disabled = false; songForm.reset();
+            });
         });
 
-        // --- LOGICA LIBRO DE FIRMAS (LocalStorage) ---
+        // --- LOGICA LIBRO DE FIRMAS ---
         const wishForm = document.getElementById('wish-form');
         const wishesList = document.getElementById('wishes-list');
 
@@ -859,27 +1010,51 @@
 
         wishForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const btn = wishForm.querySelector('button');
+            btn.innerText = "PUBLICANDO...";
+            btn.disabled = true;
+
             const name = document.getElementById('w-name').value;
             const msg = document.getElementById('w-msg').value;
+            
+            // Mostrar local
             const wishes = JSON.parse(localStorage.getItem('miguel_navy_wishes')) || [];
             wishes.unshift({ name, msg });
             localStorage.setItem('miguel_navy_wishes', JSON.stringify(wishes));
             loadWishes();
-            wishForm.reset();
+
+            // Enviar a la nube
+            const formData = new FormData(wishForm);
+            formData.append("TipoFormulario", "Deseos");
+
+            fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
+                btn.innerText = "¡PUBLICADO CON ÉXITO!";
+                setTimeout(() => { btn.innerText = "Publicar Mensaje"; btn.disabled = false; }, 2500);
+                wishForm.reset();
+            }).catch(() => {
+                btn.innerText = "Publicar Mensaje"; btn.disabled = false; wishForm.reset();
+            });
         });
 
-        // --- FORMULARIO RSVP (Simulado para catálogo, preparable para Google Sheets) ---
+        // --- FORMULARIO RSVP ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = this.querySelector('button');
             btn.innerText = "ENVIANDO...";
             btn.disabled = true;
 
-            // Simulación de envío (Aquí va el Fetch de Google Sheets cuando tengas el link)
-            setTimeout(() => {
+            const formData = new FormData(this);
+            formData.append("TipoFormulario", "Asistencia");
+
+            fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
                 document.getElementById('rsvp-container').style.display = 'none';
                 document.getElementById('rsvp-success').style.display = 'block';
-            }, 1000);
+            }).catch(() => {
+                btn.innerText = "ERROR - REINTENTAR";
+                btn.disabled = false;
+            });
         });
 
     </script>
